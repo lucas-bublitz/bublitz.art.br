@@ -1,6 +1,6 @@
 
-title: bublitz
-baseurl: "/myBlog"
+title: bublitz.art.br
+
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
