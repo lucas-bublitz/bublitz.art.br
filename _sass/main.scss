@@ -4,11 +4,8 @@
     src: url("/assets/fonts/Macondo-Regular.ttf");
 }
 
-html{
-    height: 100%;
-}
 
-body{
+body, html{
     background-color: black;
     color: gold;
     font-size: larger;
@@ -18,7 +15,6 @@ body{
     text-align: center;
     justify-content:center;
     flex: content;
-    height: 100%;
 }
 
 
@@ -28,15 +24,6 @@ body{
     margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
-
-
-#statue{
-    display: inline;
-    position: relative;
-    top: 20px;
-    height: 110px;
-}
-
 
 .main_nav{
     margin-top: 25px;
@@ -64,18 +51,18 @@ body{
 .text_box{
     display: inline-block;
     text-align: justify;
-    margin: calc(1% + 80px);
+    margin: 80px;
     margin-top: 100px;
     margin-bottom: 100px;
-    background: rgba(0, 0, 0, 0.9);
-    border-image-slice: 198 183 230 163;
+    border-image-slice: 230 183 230 183;
     border-image-width: 100px;
-    border-image-outset: 80px 80px 45px 80px;
+    border-image-outset: 80px 80px 40px 80px;
     border-image-repeat: stretch stretch;
     border-image-source: url("/assets/images/roman_column.png");
     position: relative;
     max-width: 1000px;
     min-height: 100px;
+    box-sizing: content-box;
 }
 
 .text_box h1:first-child{
@@ -83,7 +70,7 @@ body{
     text-align: center;
     position: absolute;
     white-space: nowrap;
-    top: -65px;
+    top: -63px;
     left: 50%;
     transform: translate(-50%, 0%);
 }
@@ -196,7 +183,6 @@ body{
 
 .title_main{
     font-size: 100px;
-    margin: 0px !important;
     display: block;
     position: absolute;
     top: 50%;
@@ -207,7 +193,7 @@ body{
     width: 900px;
     background-image: url("/assets/images/title.jpg");
     background-size:cover;
-    border: 5px gold solid;
+    border: 3px gold solid;
     outline: 1px solid gold;
     outline-offset: -20px;
     text-align: left !important;
@@ -224,14 +210,14 @@ body{
 
 @media all and (max-width:920px){
     .title_main{
-       position: relative;
+       position: absolute;
        top:0;
        left:0;
        transform: none;
        width: 100%;
        background-position: 10% !important;
        padding: 100px 0px 0px 0px;
-       min-height: 100%;
+       height: 100%;
        border: none;
        outline: none;
        text-align: center !important;
@@ -239,5 +225,15 @@ body{
     }
     .title_main h2{
         text-align: center !important;
+    }
+
+}
+
+@media all and (max-width:440px){
+    .text_box{
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 0px;
+        border-image-outset: 80px 55px 40px 55px;
     }
 }
