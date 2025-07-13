@@ -176,9 +176,7 @@ body{
     color: black;
     background-color: gold;
 }
-.table_itens tr:hover td{
-    
-}
+
 .table_itens td{
     padding: 10px;
     vertical-align: middle;
@@ -205,7 +203,7 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
     border: 5px 5px 5px double gold;
-    padding: 40px 0px 0px 40px;
+    padding: 40px 20px 20px 40px;
     width: 900px;
     background-image: url("/assets/images/title.jpg");
     background-size:cover;
@@ -218,12 +216,10 @@ body{
 .title_main nav h1{
     font-size: 100px !important;
 }
-.title_main q{
-    position: absolute;
-    top: 103%;
-    right: 0%;
+.title_main h2{
+    text-align: right !important;
     font-size: 20px;
-    color: rgba(255, 217, 0, 0.158);
+    color: rgba(255, 217, 0, 0.3);
 }
 
 @media all and (max-width:920px){
