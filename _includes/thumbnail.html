@@ -1,0 +1,14 @@
+
+
+<div class="thumbnail">
+    {% assign movies = site.data[include.source] | where_exp: "movie", "movie.magnet != '' "%}
+
+    {% for movie in movies %}
+        <div>
+            <a href="{{movie.magnet}}">
+                <img src="{{movie.image_path}}">
+            </a>
+            <a href="{{movie.page}}" target="_blank">{{movie.title}}</a>
+        </div>
+    {% endfor %}
+</div>

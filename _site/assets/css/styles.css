@@ -126,6 +126,10 @@ body, html {
   transform: translate(-50%, 0%);
 }
 
+.text_box h1 {
+  margin-bottom: 1em;
+}
+
 .text_box h2 {
   text-align: right;
 }
