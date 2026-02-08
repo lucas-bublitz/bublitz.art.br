@@ -1,26 +1,26 @@
 
-
 <script>
-  // URL do seu Google Apps Script (COLE AQUI A URL QUE VOCÊ COPIOU)
   const scriptURL = 'https://script.google.com/macros/s/AKfycbz59Z961eQMiP7HqBJfyh94snD_C-If71wmKUm7s2KaAx_AK9_HcMsfVaO1p9zWAAtj/exec';
 
   async function logVisit() {
     try {
-      // 1. Pega o IP do usuário usando uma API pública gratuita (ipify)
-      const ipResponse = await fetch('https://api.ipify.org?format=json');
-      const ipData = await ipResponse.json();
+      const response = await fetch('https://ipapi.co/json/');
+      const data = await response.json();
 
-      // 2. Prepara os dados para salvar
       const logData = {
-        ip: ipData.ip,
+        data: new Date().toLocaleString("pt-BR"),
+        ip: data.ip,
+        cidade: data.city,    
+        estado: data.region,   
+        pais: data.country_name,
+        provedor: data.org,     
         url: window.location.href,
-        agent: navigator.userAgent
+        navegador: navigator.userAgent
       };
 
-      // 3. Envia para o Google Sheets (sem travar o site)
       fetch(scriptURL, {
         method: 'POST',
-        mode: 'no-cors', // Importante para não dar erro de segurança
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -28,10 +28,9 @@
       });
 
     } catch (error) {
-      console.log('Erro ao registrar visita (provavelmente AdBlock):', error);
+      console.log('Erro ao obter dados (pode ser AdBlock):', error);
     }
   }
 
-  // Executa assim que a página carregar
   window.addEventListener('load', logVisit);
 </script>
