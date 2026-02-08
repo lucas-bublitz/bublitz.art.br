@@ -140,6 +140,9 @@ body, html{
     outline-color: red !important;
 }
 
+.thumbnail span{
+    font-size: 0.5em;
+}
 
 .aqui{
     background-image: url("/assets/images/nav.png");
@@ -240,4 +243,26 @@ body, html{
         padding: 0px;
         border-image-outset: 80px 55px 40px 55px;
     }
+}
+
+
+select {
+    text-align: center;
+    border: none;
+    // border-bottom: 4px gold double;
+    background: none;
+    color: gold;
+    font-family: inherit;
+    font-size: 1em;
+    width: 100%;
+    display: block;
+}
+
+//   select::-ms-expand {
+//     display: none;
+//   }
+
+
+hr {
+    border: 1px solid gold
 }

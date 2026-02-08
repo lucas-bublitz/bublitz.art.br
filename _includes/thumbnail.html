@@ -1,14 +1,121 @@
 
+<select id="category-filter">
+  <option value="all">Todos</option>
+  <option value="Best Picture">Melhor Filme</option>
+  <option value="Best Director">Melhor Direção</option>
+  <option value="Best Actor">Melhor Ator</option>
+  <option value="Best Actress">Melhor Atriz</option>
+  <option value="Best Supporting Actor">Melhor Ator Coadjuvante</option>
+  <option value="Best Supporting Actress">Melhor Atriz Coadjuvante</option>
+  <option value="Best Original Screenplay">Melhor Roteiro Original</option>
+  <option value="Best Adapted Screenplay">Melhor Roteiro Adaptado</option>
+  <option value="Best International Feature Film">Melhor Filme Internacional</option>
+  <option value="Best Animated Feature Film">Melhor Animação</option>
+  <option value="Best Documentary Feature Film">Melhor Documentário</option>
+  <option value="Best Cinematography">Melhor Fotografia</option>
+  <option value="Best Visual Effects">Melhores Efeitos Visuais</option>
+  <option value="Best Sound">Melhor Som</option>
+  <option value="Best Production Design">Melhor Design de Produção</option>
+  <option value="Best Costume Design">Melhor Figurino</option>
+  <option value="Best Makeup and Hairstyling">Melhor Maquiagem e Penteados</option>
+  <option value="Best Film Editing">Melhor Edição (Montagem)</option>
+  <option value="Best Original Song">Melhor Canção Original</option>    
+  <option value="Best Live Action Short Film">Melhor Curta-Metragem em Live Action</option>
+  <option value="Best Animated Short Film">Melhor Curta-Metragem de Animação</option>
+  <option value="Best Documentary Short Film">Melhor Documentário em Curta-Metragem</option>
+</select>
+
+{% assign movies = site.data[include.source] | where_exp: "movie", "movie.magnet != '' " | sort_natural: 'title' %}
 
 <div class="thumbnail">
-    {% assign movies = site.data[include.source] | where_exp: "movie", "movie.magnet != '' "%}
 
     {% for movie in movies %}
-        <div>
+      {%  assign categories = movie.categories | join ','  %}
+      {%  unless categories contains 'Short' %}
+        <div class="movie-card-feature" data-categories="{{categories}}" size-categories="{{movie.categories | size}}">
+          <a href="{{movie.magnet}}">
+            <img src="{{movie.image_path}}">
+            </a>
+            <a href="{{movie.page}}" target="_blank">{{movie.title}}</a>
+            <br>
+            <span>
+              {{movie.categories | size}} <br>
+              {{movie.categories | join: '<br>'}}
+            </span>
+        </div>
+      {% endunless %}
+    {% endfor %}
+</div>
+
+<hr id="short-movie-line">
+
+<div class="thumbnail">
+
+    {% for movie in movies %}
+      {%  assign categories = movie.categories | join ','  %}
+      {%  if categories contains 'Short' == True %}
+        <div class="movie-card-feature" data-categories="{{categories}}" size-categories="{{movie.categories | size}}">
+          <a href="{{movie.magnet}}">
+            <img src="{{movie.image_path}}">
+            </a>
+            <a href="{{movie.page}}" target="_blank">{{movie.title}}</a>
+            <br>
+            <span>
+              {{movie.categories | size}} <br>
+              {{movie.categories | join: '<br>'}}
+            </span>
+        </div>
+      {% endif %}
+    {% endfor %}
+</div>
+
+
+{% comment %} 
+<div class="thumbnail">
+    {% assign shorts = all_movies | where_exp: "movie", "movie.categories contains 'Short'" %}
+
+    {% for movie in shorts %}
+        <div class="movie-card-short" data-categories="{{ movie.categories | join: ' ' }}" size-categories="{{movie.categories | size}}">
             <a href="{{movie.magnet}}">
                 <img src="{{movie.image_path}}">
             </a>
             <a href="{{movie.page}}" target="_blank">{{movie.title}}</a>
+            <br>
+            <span>
+              {{movie.categories | size}} <br>
+              {{movie.categories | join: '<br>'}}
+            </span>
         </div>
     {% endfor %}
-</div>
+</div> {% endcomment %}
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterSelect = document.getElementById('category-filter');
+    const short_movie_line = document.getElementById('short-movie-line')
+
+    filterSelect.addEventListener('change', (e) => {
+      const selected = e.target.value;
+      // Buscamos os cards dentro do evento para garantir que pegamos os elementos certos
+      const movieCards = document.querySelectorAll('.movie-card-feature');
+
+      movieCards.forEach(card => {
+        const cardCategories = card.getAttribute('data-categories') || "";
+
+        // Verifica se a categoria selecionada está na string de categorias do card
+        if (selected === "all" || cardCategories.includes(selected)) {
+          card.style.display = "block"; 
+        } else {
+          card.style.display = "none";
+        }
+
+        if (selected == "all") {
+          short_movie_line.style.display = "block"; 
+        } else {
+          short_movie_line.style.display = "none"; 
+        }
+      });
+    });
+  });
+</script>
