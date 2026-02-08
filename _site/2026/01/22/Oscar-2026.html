@@ -838,5 +838,50 @@
 <p>É a lista.</p>
 
 </article> 
+    
+<script>
+
+  const IPINFO_TOKEN = 'd268ed2ce5d46a'; 
+  
+
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEIx6bDIb9POsq7p9ijFRDH2p6K9xOsI6WD-R-NPTIzixpkcjPsK3PGeezRLgaQ3w/exec';
+
+  async function logVisit() {
+    if (sessionStorage.getItem('visit_logged_v2')) return;
+
+    try {
+      const response = await fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`);
+      const data = await response.json();
+
+      const payload = {
+        data_hora: new Date().toLocaleString("pt-BR"),
+        ip: data.ip,
+        cidade: data.city || "Desconhecido",
+        estado: data.region || "Desconhecido",
+        pais: data.country || "Desconhecido",
+        provedor: data.org || "Desconhecido", 
+        url: window.location.href,
+        agente: navigator.userAgent
+      };
+
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', 
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify(payload)
+      });
+
+      sessionStorage.setItem('visit_logged_v2', 'true');
+      console.log('Rastreador: Visita registrada com sucesso.');
+
+    } catch (error) {
+      console.error('Rastreador: Erro ao registrar visita.', error);
+    }
+  }
+
+  window.addEventListener('load', logVisit);
+</script>
 </body>
 </html> 
